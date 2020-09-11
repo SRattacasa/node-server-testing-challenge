@@ -17,15 +17,15 @@ describe("cars integration tests", () => {
 		const res = await supertest(server).get("/cars")
 		expect(res.statusCode).toBe(200)
 		expect(res.type).toBe("application/json")
-		expect(res.body.length).toBeGreaterThanOrEqual(4)
-		expect(res.body[0].name).toBe("sam")
+		expect(res.body.length).toBeGreaterThanOrEqual(1)
+		expect(res.body[0].name).toBe("evo")
 	})
 
 	it("GET /cars/:id", async () => {
 		const res = await supertest(server).get("/cars/2")
 		expect(res.statusCode).toBe(200)
 		expect(res.type).toBe("application/json")
-		expect(res.body.name).toBe("frodo")
+		expect(res.body.name).toBe("sti") 
 	})
 
 	it("GET /cars/:id - not found", async () => {
@@ -40,5 +40,11 @@ describe("cars integration tests", () => {
 		expect(res.statusCode).toBe(201)
 		expect(res.type).toBe("application/json")
 		expect(res.body.name).toBe("bilbo")
+	})
+
+	it("DELETE /cars", async () => {
+		const res = await supertest(server)
+			.delete("/cars/4")
+		expect(res.statusCode).toBe(204)
 	})
 })

@@ -14,9 +14,9 @@ router.get("/", async (req, res, next) => {
 router.get("/:id", async (req, res, next) => {
 	try {
 		const car = await Cars.findById(req.params.id)
-		if (!hobbit) {
+		if (!car) {
 			return res.status(404).json({
-				message: "Hobbit not found",
+				message: "Car not found",
 			})
 		}
 
@@ -30,6 +30,14 @@ router.post("/", async (req, res, next) => {
 	try {
 		const car = await Cars.create(req.body)
 		res.status(201).json(car)
+	} catch (err) {
+		next(err)
+	}
+})
+router.delete("/:id", async (req, res, next) => {
+	try {
+		const car = await Cars.remove(req.params.id)
+		res.status(204).json(car)
 	} catch (err) {
 		next(err)
 	}
